@@ -2,13 +2,13 @@
 void setup() {
   fullScreen(2);
   
-  PFont font = createFont("font.ttf", 32, true);
+  PFont font = createFont("data/font.ttf", 32, true);
   textFont(font);
   textSize(20);
   
-  tank = loadRoleFile("tank.txt");
-  damage = loadRoleFile("damage.txt");
-  support = loadRoleFile("support.txt");
+  tank = loadRoleFile("data/tank.txt");
+  damage = loadRoleFile("data/damage.txt");
+  support = loadRoleFile("data/support.txt");
   
   minSR = min(min(tank), min(damage), min(support));
   maxSR = max(max(tank), max(damage), max(support));
