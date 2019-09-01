@@ -10,3 +10,13 @@ void dottedLine(float x0, float y0, float x1, float y1) {
     point(x, y);
   }
 }
+
+void strokeFill(color s, color f) {
+  stroke(s);
+  fill(f);
+}
+
+void strokeFill(color s) {
+  stroke(s);
+  noFill();
+}

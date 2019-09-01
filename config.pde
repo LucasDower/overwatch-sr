@@ -22,4 +22,3 @@ color misc = #ACB2BE;
 color tank_colour = #E1C082;
 color damage_colour = #67AEE7;
 color support_colour = #C27CD7;
-// red = ACB2BE

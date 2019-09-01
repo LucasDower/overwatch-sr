@@ -4,6 +4,7 @@ void setup() {
   
   PFont font = createFont("font.ttf", 32, true);
   textFont(font);
+  textSize(20);
   
   tank = loadRoleFile("tank.txt");
   damage = loadRoleFile("damage.txt");
@@ -17,6 +18,8 @@ void setup() {
   
   noLoop();
   noFill();  
+  strokeJoin(ROUND);
+  strokeCap(ROUND);
 }
 
 int[] loadRoleFile(String filename) {
@@ -28,24 +31,9 @@ int[] loadRoleFile(String filename) {
   return sr;
 }
 
-
-
-void drawStats() {
-  fill(misc);
-  int x = width-150;
-  textAlign(RIGHT);
-  Details tank_ = new Details(tank);
-  tank_.drawMe("Tank",x, 100);
-  Details damage_ = new Details(damage);
-  damage_.drawMe("Damage", x, 140);
-  Details support_ = new Details(support);
-  support_.drawMe("Support", x, 180);
-}
-
 void drawAxis() {
-  fill(misc);
-  stroke(misc);
-  textSize(20);
+  strokeFill(misc, misc);
+  
   strokeWeight(axisWidth);
   line(0, height-v_margins, 0, v_margins); // Vertical
   textAlign(RIGHT, CENTER);
@@ -67,52 +55,33 @@ void drawAxis() {
   noFill();
 }
 
-void drawRole(int[] role, color c, String roleText) {
-  stroke(c);
-  beginShape();
-  strokeJoin(ROUND);
-  strokeCap(ROUND);
-  Details details = new Details(role);
-  float x = 0;
-  float y = 0;
+void drawRole(int[] role, color colour, String roleText) {
+  float x = 0, y = 0;
   int l = role.length;
-  
-  float tx = 0;
-  float ty = map(role[0], minSR, maxSR, height-v_margins, v_margins);;
-  for (int i = 2; i < l; i++) {
+
+  beginShape();
+  strokeFill(colour);
+  for (int i = 0; i < l; i++) {
     x = i * h_size;
     y = map(role[i], minSR, maxSR, height-v_margins, v_margins);
-    //vertex(x, y);
-    strokeWeight(lineWidth);
-    if (details.diffs[i-1] > 0) {
-      float lW = map(details.diffs[i-1], 0, details.maxIncrease, 1, pointWidth);
-      strokeWeight(lW);
-    }
-    if (details.diffs[i-1] < 0) {
-      float lW = map(details.diffs[i-1], 0, details.maxDecrease, 1, pointWidth);
-      strokeWeight(lW);
-    }
-    line(tx, ty, x, y);
-    tx = x;
-    ty = y;
+    vertex(x, y);
     strokeWeight(pointWidth);
-    //point(x, y);
+    point(x, y);
   }
+  strokeWeight(lineWidth);
+  endShape();
+  
   int offset = 25;
   if (l >= 2 && role[l-1] < role[l-2]) {
       offset = -15;
   }
-  strokeWeight(lineWidth);
-  endShape();
-  fill(c);
-  textSize(20);
+  
+  fill(colour);
   textAlign(CENTER, CENTER);
   text(roleText, x, y - offset);
-  noFill();
+  
   dottedLine(x, y, h_size * (maxLength-1), y);
 }
-
-
 
 void draw() { 
   translate((h_size+h_margins+50) / 2, 0);
@@ -122,6 +91,6 @@ void draw() {
   drawRole(tank, tank_colour, "Tank");
   drawRole(damage, damage_colour, "Damage");
   drawRole(support, support_colour, "Support");
-  //drawStats();
+
   save("output.png");
 }
