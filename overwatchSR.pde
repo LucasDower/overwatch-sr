@@ -1,24 +1,29 @@
 void setup() {
-  fullScreen(1);
-  config();
-  loadData();
-}
+  fullScreen(2);
+  
+  textSize(14);
+  background(#282C33);
+  noLoop();
+  strokeJoin(ROUND);
+  strokeCap(ROUND);
+  
+  Series tank = new Series();
+  Series damage = new Series();
+  Series support = new Series();
+  
+  tank.loadFromFile("data/tank.txt", 0);
+  damage.loadFromFile("data/damage.txt", 0);
+  support.loadFromFile("data/support.txt", 0);
 
-int div = height/2;
-
-void draw() {
-  translate((h_size+h_margins+50) / 2, 0);
-  background(background);
-
-  srGraph_drawAxis();
-  srGraph_drawRole(tank, tank_colour, "Tank");
-  srGraph_drawRole(damage, damage_colour, "Damage");
-  srGraph_drawRole(support, support_colour, "Support");
-
-  diffGraph_drawAxis();
-  diffGraph_drawRole(diffs_tank, tank_colour);
-  diffGraph_drawRole(diffs_damage, damage_colour);
-  diffGraph_drawRole(diffs_support, support_colour);
+  tank.setColour(#E1C082);
+  damage.setColour(#67AEE7);
+  support.setColour(#C27CD7);
+  
+  Graph g = new Graph();
+  g.addSeries(tank);
+  g.addSeries(damage);
+  g.addSeries(support);
+  g.drawGraph();
   
   save("output.png");
 }
