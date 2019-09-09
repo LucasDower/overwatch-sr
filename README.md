@@ -10,13 +10,13 @@ Currently, everytime you win, lose, or draw a competitive game, you need to reco
 #### Formatting
 All SR should be recorded separately on new lines.
 
-Competitive seasons can bee split into their own lines on the graph. A label must be given before the SR numbers, to denote this surround the label text with `<>`. The text within can be anything, but it's probably most useful to display what season the SR is referring to. In the example below, you could equally have `<Season 17>` instead of `<S17>`, or even `<Solo matches>`.
+Competitive seasons can bee split into their own lines on the graph. A label must be given before the SR numbers, to denote this surround the label text with `<>`. The text within can be anything, but it's probably most useful to display what season the SR is referring to. In the example below, you could equally have `<Season 17>` instead of `<S17>`.
 
 *Labels are just used to break up the SR into separate lines.*
 
 **Each of the role files must have at least one label (the one at the top).**
 
-###### Example
+#### Example
 ```
 <S17>
 2592
