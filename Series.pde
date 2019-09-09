@@ -3,6 +3,8 @@ class Series {
   private ArrayList<Point> points;
   private ArrayList<Point> breaks;
   private color lineColour = #000000;
+  
+  private String label;
 
   private int minY = Integer.MAX_VALUE;
   private int maxY = Integer.MIN_VALUE;
@@ -10,9 +12,14 @@ class Series {
   private int minX = Integer.MAX_VALUE;
   private int maxX = Integer.MIN_VALUE;
 
-  public Series() {
+  public Series(String label) {
+    this.label = label;
     points = new ArrayList<Point>();
     breaks = new ArrayList<Point>();
+  }
+  
+  public String getLabel() {
+    return label;
   }
   
   public void setColour(color c) {
@@ -33,14 +40,6 @@ class Series {
 
   public ArrayList<Point> getPoints() {
     return points;
-  }
-
-  public void loadFromFile(String filename, int offset) {
-      String[] lines = loadStrings(filename);
-      for (int i = 0; i < lines.length; i++) {
-        int tY = Integer.parseInt(lines[i]);
-        addPoint(new Point(i + offset, tY));
-      }
   }
 
   public int getMinY() {

@@ -7,6 +7,8 @@ class Graph {
   private int marginLeft = 50;
   private int marginRight = 50;
   
+  private String label;
+  
   private int axisTextPadding = 50;
   private int lineWeight = 4;
   private int axisWeight = 2;
@@ -76,19 +78,28 @@ class Graph {
   }
 
   private void drawSeries() {
-    noFill();
-    strokeWeight(lineWeight);
+    textAlign(CENTER, CENTER);
     for (int i = 0; i < series.size(); i++) {
+      noFill();
       Series tSeries = series.get(i);
-      stroke(tSeries.getColour());
       beginShape();
+      float tempX = 0, tempY = 0;
       for (int j = 0; j < tSeries.getSize(); j++) {
+        strokeWeight(lineWeight);
         Point tPoint = tSeries.getPoint(j);
-        float tempX = map(tPoint.getX(), seriesMinX, seriesMaxX, marginLeft + axisTextPadding, width-marginRight);
-        float tempY = map(tPoint.getY(), axisMin, axisMax, height-marginBottom, marginTop);
+        tempX = map(tPoint.getX(), seriesMinX, seriesMaxX, marginLeft + axisTextPadding, width-marginRight);
+        tempY = map(tPoint.getY(), axisMin, axisMax, height-marginBottom, marginTop);
+        stroke(tSeries.getColour());
         vertex(tempX, tempY);
       }
       endShape();
+      fill(tSeries.getColour());
+      int l = tSeries.getSize();
+      if ( tSeries.getPoint(l-2).getY() > tSeries.getPoint(l-1).getY()) {
+        text(tSeries.getLabel(), tempX, tempY + 20);
+      } else {
+        text(tSeries.getLabel(), tempX, tempY - 20);
+      } 
     }
   }
 
