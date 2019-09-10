@@ -78,23 +78,36 @@ class Graph {
   }
 
   private void drawSeries() {
+    strokeWeight(lineWeight);
     for (int i = 0; i < series.size(); i++) {
       Series tSeries = series.get(i);
       stroke(tSeries.getColour());
-      float tempX = 0, tempY = 0;
+      Point prevPoint = null, prevPointMapped = null;
       for (int j = 0; j < tSeries.getSize(); j++) {
         Point tPoint = tSeries.getPoint(j);
-        tempX = map(tPoint.getX(), seriesMinX, seriesMaxX, marginLeft + axisTextPadding, width-marginRight);
-        tempY = map(tPoint.getY(), axisMin, axisMax, height-marginBottom, marginTop);
-        vertex(tempX, tempY);
-        strokeWeight(2*lineWeight);
-        point(tempX, tempY);
+        Point tPointMapped = remapPoint(tPoint);
+        if (prevPoint != null) {
+          if (tPoint.getX() - prevPoint.getX() == 1) {
+            line(prevPointMapped.getX(), prevPointMapped.getY(), tPointMapped.getX(), tPointMapped.getY());
+          } else {
+            dottedLine(prevPointMapped.getX(), prevPointMapped.getY(), tPointMapped.getX(), tPointMapped.getY());
+          }
+        }
+        point(tPointMapped.getX(), tPointMapped.getY());
+        prevPoint = tPoint;
+        prevPointMapped = tPointMapped;
       }
-      strokeWeight(lineWeight);
     }
   }
 
-  private drawLabels() {
+  private Point remapPoint(Point p) {
+    int tempX = (int) map(p.getX(), seriesMinX, seriesMaxX, marginLeft + axisTextPadding, width-marginRight);
+    int tempY = (int) map(p.getY(), axisMin, axisMax, height-marginBottom, marginTop);
+    return new Point(tempX, tempY);
+  }
+
+  private void drawLabels() {
+    /*
     for (int i = 0; i < series.size(); i++) {
       Series tSeries = series.get(i);
       textAlign(CENTER, CENTER);
@@ -105,11 +118,24 @@ class Graph {
       } else {
         text(tSeries.getLabel(), tempX, tempY - 20);
       }
-      */
+    }
+    */
   }
 
   private int factorRound(int value) {
     return (((int) value/tickFactor)) * tickFactor;
+  }
+
+
+  private void dottedLine(int x0, int y0, int x1, int y1) {
+    strokeWeight(lineWeight);
+    float distance = dist(x0, y0, x1, y1);
+    int numTicks = (int) distance/(lineWeight * 2);
+    for (int i = 0; i < numTicks; i++) {
+      float tempX = map(i, 0, numTicks, x0, x1);
+      float tempY = map(i, 0, numTicks, y0, y1);
+      point(tempX, tempY);
+    }
   }
 
   public void drawGraph() {

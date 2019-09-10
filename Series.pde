@@ -74,8 +74,10 @@ class Series {
       Point lastPoint = getPoint(points.size() - 1);
       Point intPoint = new Point(p.getX()-1, lastPoint.getY());
       points.add(intPoint);
+      points.add(p);
+    } else {
+      points.add(new Point(0, p.getY()));
     }
-    points.add(p);
   }
 
 }
