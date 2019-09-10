@@ -2,10 +2,10 @@
 
 ![](output.jpg)
 
-## Useage
+## Usage
 Each role in Overwatch has its own .txt file, found in the `/data/` folder, storing the SR of the player throughout the player's career.
 
-Currently, everytime you win, lose, or draw a competitive game, you need to record your new SR in the appropriate .txt file.
+Currently, every time you win, lose, or draw a competitive game, you need to record your new SR in the appropriate .txt file.
 
 #### Formatting
 All SR should be recorded separately on new lines.
