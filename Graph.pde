@@ -78,11 +78,8 @@ class Graph {
   }
 
   private void drawSeries() {
-    textAlign(CENTER, CENTER);
     for (int i = 0; i < series.size(); i++) {
-      noFill();
       Series tSeries = series.get(i);
-      beginShape();
       stroke(tSeries.getColour());
       float tempX = 0, tempY = 0;
       for (int j = 0; j < tSeries.getSize(); j++) {
@@ -94,8 +91,13 @@ class Graph {
         point(tempX, tempY);
       }
       strokeWeight(lineWeight);
-      endShape();
-      /*
+    }
+  }
+
+  private drawLabels() {
+    for (int i = 0; i < series.size(); i++) {
+      Series tSeries = series.get(i);
+      textAlign(CENTER, CENTER);
       fill(tSeries.getColour());
       int l = tSeries.getSize();
       if ( tSeries.getPoint(l-2).getY() > tSeries.getPoint(l-1).getY()) {
@@ -104,7 +106,6 @@ class Graph {
         text(tSeries.getLabel(), tempX, tempY - 20);
       }
       */
-    }
   }
 
   private int factorRound(int value) {
@@ -114,6 +115,7 @@ class Graph {
   public void drawGraph() {
     drawAxis();
     drawSeries();
+    //drawLabels();
   }
 
 }
