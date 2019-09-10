@@ -1,9 +1,8 @@
 class Series {
 
   private ArrayList<Point> points;
-  private ArrayList<Point> breaks;
   private color lineColour = #000000;
-  
+
   private String label;
 
   private int minY = Integer.MAX_VALUE;
@@ -15,17 +14,23 @@ class Series {
   public Series(String label) {
     this.label = label;
     points = new ArrayList<Point>();
-    breaks = new ArrayList<Point>();
   }
-  
+
+  public void printPoints() {
+    System.out.println(label);
+    for (int i = 0; i < points.size(); i++) {
+      System.out.println(points.get(i).toString());
+    }
+  }
+
   public String getLabel() {
     return label;
   }
-  
+
   public void setColour(color c) {
     lineColour = c;
   }
-  
+
   public color getColour() {
     return lineColour;
   }
@@ -65,6 +70,11 @@ class Series {
     int tY = p.getY();
     minY = min(minY, tY);
     maxY = max(maxY, tY);
+    if (points.size() > 0) {
+      Point lastPoint = getPoint(points.size() - 1);
+      Point intPoint = new Point(p.getX()-1, lastPoint.getY());
+      points.add(intPoint);
+    }
     points.add(p);
   }
 
