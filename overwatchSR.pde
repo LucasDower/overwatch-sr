@@ -111,10 +111,6 @@ void parseFile(String filename, Graph g, color c) {
 
 }
 
-void dottedLine(int x0, int y0, int x1, int y1) {
-
-}
-
 void logToFile(String errorMessage) {
   String[] m = {errorMessage};
   saveStrings("crash.log", m);

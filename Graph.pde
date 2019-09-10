@@ -78,12 +78,12 @@ class Graph {
   }
 
   private void drawSeries() {
-    strokeWeight(lineWeight);
     for (int i = 0; i < series.size(); i++) {
       Series tSeries = series.get(i);
       stroke(tSeries.getColour());
       Point prevPoint = null, prevPointMapped = null;
       for (int j = 0; j < tSeries.getSize(); j++) {
+        strokeWeight(lineWeight);
         Point tPoint = tSeries.getPoint(j);
         Point tPointMapped = remapPoint(tPoint);
         if (prevPoint != null) {
@@ -93,6 +93,7 @@ class Graph {
             dottedLine(prevPointMapped.getX(), prevPointMapped.getY(), tPointMapped.getX(), tPointMapped.getY());
           }
         }
+        strokeWeight(lineWeight*2);
         point(tPointMapped.getX(), tPointMapped.getY());
         prevPoint = tPoint;
         prevPointMapped = tPointMapped;
