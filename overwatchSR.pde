@@ -20,9 +20,7 @@ void setup() {
   }
   
   Graph g = new Graph();
-  parseFile("tank.txt", g, #E1C082);
-  parseFile("damage.txt", g, #67AEE7);
-  parseFile("support.txt", g, #C27CD7);
+  parseFile("sr.txt", g, #E1C082);
   g.drawGraph();
   
   save("output.jpg");
