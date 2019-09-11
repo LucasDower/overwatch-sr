@@ -1,5 +1,7 @@
 **A Processing project to graph Overwatch SR.**
 
+*An alternative graphing style can be found in the* [horizontal-redo](https://github.com/LucasDower/overwatch-sr/tree/horizontal-redo) *branch*. 
+
 ![](output.jpg)
 
 ## Useage
