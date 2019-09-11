@@ -24,7 +24,7 @@ void setup() {
   }
 
   Graph g = new Graph();
-  parseFile("sr.txt", g, #E1C082);
+  parseFile("sr.txt", g);
 
   tank.setColour(#E1C082);
   damage.setColour(#67AEE7);
@@ -56,7 +56,7 @@ String parseLabel(String label) {
   return label.replaceAll("<|>", "");
 }
 
-void parseFile(String filename, Graph g, color c) {
+void parseFile(String filename, Graph g) {
   // Check the file exists in the data subfolder.
   String path = subfolderPath + "\\" + filename;
   subpath = subfolder + "/" + filename;
@@ -74,12 +74,10 @@ void parseFile(String filename, Graph g, color c) {
   }
 
   // The first line denotes the line's label.
-  String label = parseLabel(lines[0]);
-
+  String label = "";//parseLabel(lines[0]);
   Series s = new Series(label);
-  s.setColour(c);
 
-  int k = 0;
+  int compOffset = 0;
 
   for (int i = 1; i < lines.length; i++) {
     String[] line = lines[i].split(":");
@@ -107,8 +105,8 @@ void parseFile(String filename, Graph g, color c) {
       logToFile(subpath + " is incorrectly formatted.");
       exit();
     }
-    Point p = new Point(i-1, SR);
-    k += toAddto.addPoint(p);
+    Point p = new Point(i-1+compOffset, SR);
+    compOffset += toAddto.addPoint(p);
   }
 
   g.addSeries(s);

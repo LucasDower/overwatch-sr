@@ -65,35 +65,80 @@ class Series {
 
   private int startingSR = -1;
 
-  public int addPoint(Point p) {
-    if (startingSR == -1) {
-      startingSR = p.getY();
-      return 1;
-    }
+  private void updateMinMax(Point p) {
     int tX = p.getX();
     minX = min(minX, tX);
     maxX = max(maxX, tX);
     int tY = p.getY();
     minY = min(minY, tY);
     maxY = max(maxY, tY);
-    Point old = null;
-    if (points.size() == 0) {
-      old = new Point(-1, startingSR);
-    } else {
-      old = points.get(points.size() - 1);
+  }
+
+  public int addPoint(Point newPoint) {
+    if (startingSR == -1) {
+      startingSR = newPoint.getY();
+      return 0;
     }
-    Point int_ = new Point(p.getX() - 1, old.getY());
-    points.add(int_);
+    updateMinMax(newPoint);
 
-    tX = int_.getX();
-    minX = min(minX, tX);
-    maxX = max(maxX, tX);
-    tY = int_.getY();
-    minY = min(minY, tY);
-    maxY = max(maxY, tY);
 
-    points.add(p);
+    if (points.size() > 0) {
+      Point prevPoint = points.get(points.size() - 1);
+      if (newPoint.getX() - prevPoint.getX() != 1) {
+        Point intermediatePoint = new Point(newPoint.getX(), prevPoint.getY());
+        updateMinMax(intermediatePoint);
+        points.add(intermediatePoint);
+        newPoint = new Point(newPoint.getX() + 1, newPoint.getY());
+        points.add(newPoint);
+        return 1;
+      }
+    } else {
+      Point intermediatePoint = new Point(newPoint.getX(), startingSR);
+      updateMinMax(intermediatePoint);
+      points.add(intermediatePoint);
+      newPoint = new Point(newPoint.getX() + 1, newPoint.getY());
+      points.add(newPoint);
+      return 1;
+    }
+
+    points.add(newPoint);
     return 0;
+    /*
+    if (points.size() > 0) {
+      // There already exists a point, called 'prevPoint'.
+      Point prevPoint = points.get(points.size() - 1);
+
+      if (p.getX() - prevPoint.getX() == 1) {
+        // If 'p' is adjacent to 'prevPoint',
+        // add the new point. Return an offset of 0.
+        points.add(p);
+        return 0;
+      } else {
+        // Otherwise, copy the y-value of 'prevPoint' and place instead.
+        // Add 'p' adjacent to the intermediate point 'q'.
+        // Return an offset of 1.
+        Point q = new Point(p.getX(), prevPoint.getY());
+        points.add(q);
+        Point pNew = new Point(p.getX() + 1, p.getY());
+
+        tX = pNew.getX();
+        minX = min(minX, tX);
+        maxX = max(maxX, tX);
+        tY = pNew.getY();
+        minY = min(minY, tY);
+        maxY = max(maxY, tY);
+
+        points.add(p);
+        return 1;
+      }
+    } else {
+      // 'p' is the first point to be added.
+      // Add it and return a offset of 0.
+      points.add(p);
+      return 0;
+    }
+    */
+
   }
 
 }

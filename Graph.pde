@@ -101,6 +101,26 @@ class Graph {
     }
   }
 
+  private void drawTrailingEnds() {
+    for (int i = 0; i < series.size(); i++) {
+      Series s = series.get(i);
+      stroke(s.getColour());
+      int size = s.getSize();
+      if (size > 0) {
+        Point first = s.getPoint(0);
+        Point leftEdge = new Point(seriesMinX, first.getY());
+        first = remapPoint(first);
+        leftEdge = remapPoint(leftEdge);
+        dottedLine(leftEdge.getX(), leftEdge.getY(), first.getX(), first.getY());
+        Point last = s.getPoint(size - 1);
+        Point rightEdge = new Point(seriesMaxX, last.getY());
+        last = remapPoint(last);
+        rightEdge = remapPoint(rightEdge);
+        dottedLine(rightEdge.getX(), rightEdge.getY(), last.getX(), last.getY());
+      }
+    }
+  }
+
   private Point remapPoint(Point p) {
     int tempX = (int) map(p.getX(), seriesMinX, seriesMaxX, marginLeft + axisTextPadding, width-marginRight);
     int tempY = (int) map(p.getY(), axisMin, axisMax, height-marginBottom, marginTop);
@@ -143,6 +163,7 @@ class Graph {
     drawAxis();
     drawSeries();
     //drawLabels();
+    drawTrailingEnds();
   }
 
 }
