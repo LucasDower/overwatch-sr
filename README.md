@@ -1,5 +1,7 @@
 **A Processing project to graph Overwatch SR.**
 
+*This style has the add functionality of showing patterns in a players choice of role. Such as win/loss streaks, periods of 'maining' a role and periods of not playing a role. 
+
 ![](output.jpg)
 
 ## Usage
