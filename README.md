@@ -3,41 +3,38 @@
 ![](output.jpg)
 
 ## Usage
-Each role in Overwatch has its own .txt file, found in the `/data/` folder, storing the SR of the player throughout the player's career.
+The data of the player's SR is to be stored in `/data/sr.txt/`.
 
-Currently, every time you win, lose, or draw a competitive game, you need to record your new SR in the appropriate .txt file.
+*Every time you win, lose, or draw a competitive game, you need to record your new SR in the file.*
 
 #### Formatting
-All SR should be recorded separately on new lines.
-
-Competitive seasons can bee split into their own lines on the graph. A label must be given before the SR numbers, to denote this surround the label text with `<>`. The text within can be anything, but it's probably most useful to display what season the SR is referring to. In the example below, you could equally have `<Season 17>` instead of `<S17>`.
-
-*Labels are just used to break up the SR into separate lines.*
-
-**Each of the role files must have at least one label (the one at the top).**
+All SR should be recorded separately on new lines in the format `<Role>:<New SR>`. For example, if you played a game as a Platinum *Reaper*, you would append `D:2732` to the file. 
 
 #### Example
 ```
-<S17>
-2592
-2613
-2586
-2605
-2630
-2652
-2675
-2653
-<S18>
-2675
-2701
-2720
-2747
-2724
-2705
-2728
-2704
-2730
+S:2662
+S:2637
+S:2661
+S:2638
+S:2664
+S:2646
+S:2623
+D:2596
+D:2568
+T:2733
+T:2712
+T:2693
+T:2719
+D:2593
+D:2613
+D:2632
+S:2599
+S:2626
 ```
+
+## Updates
+* Labels;
+* Splitting by competitive seasons.
 
 ## Installation
 Download [Processing](https://processing.org/), download these project files and open using *Processing*.
