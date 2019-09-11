@@ -79,9 +79,12 @@ void parseFile(String filename, Graph g, color c) {
   Series s = new Series(label);
   s.setColour(c);
 
+  int k = 0;
+
   for (int i = 1; i < lines.length; i++) {
     String[] line = lines[i].split(":");
     Series toAddto = new Series("void");
+
     switch (line[0]) {
       case "T":
         toAddto = tank;
@@ -96,6 +99,7 @@ void parseFile(String filename, Graph g, color c) {
         logToFile(subpath + " is incorrectly formatted.");
         exit();
     }
+
     int SR = 0;
     try {
       SR = Integer.parseInt(line[1]);
@@ -104,7 +108,7 @@ void parseFile(String filename, Graph g, color c) {
       exit();
     }
     Point p = new Point(i-1, SR);
-    toAddto.addPoint(p);
+    k += toAddto.addPoint(p);
   }
 
   g.addSeries(s);

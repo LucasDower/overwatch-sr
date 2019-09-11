@@ -63,21 +63,37 @@ class Series {
     return maxX;
   }
 
-  public void addPoint(Point p) {
+  private int startingSR = -1;
+
+  public int addPoint(Point p) {
+    if (startingSR == -1) {
+      startingSR = p.getY();
+      return 1;
+    }
     int tX = p.getX();
     minX = min(minX, tX);
     maxX = max(maxX, tX);
     int tY = p.getY();
     minY = min(minY, tY);
     maxY = max(maxY, tY);
-    if (points.size() > 0) {
-      Point lastPoint = getPoint(points.size() - 1);
-      Point intPoint = new Point(p.getX()-1, lastPoint.getY());
-      points.add(intPoint);
-      points.add(p);
+    Point old = null;
+    if (points.size() == 0) {
+      old = new Point(-1, startingSR);
     } else {
-      points.add(new Point(0, p.getY()));
+      old = points.get(points.size() - 1);
     }
+    Point int_ = new Point(p.getX() - 1, old.getY());
+    points.add(int_);
+
+    tX = int_.getX();
+    minX = min(minX, tX);
+    maxX = max(maxX, tX);
+    tY = int_.getY();
+    minY = min(minY, tY);
+    maxY = max(maxY, tY);
+
+    points.add(p);
+    return 0;
   }
 
 }
